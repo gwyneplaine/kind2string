@@ -55,6 +55,8 @@ const converters = {
 */
   string: (type /*: K.String*/, mode /*: string */) /*:string*/ =>
     type.value != null ? `"${type.value.toString()}"` : type.kind,
+  arrayType: (type /* K.ArrayType */, mode /*: string */) /*:string*/ =>
+    `array of ${convert(type.type)}`,
   custom: (type /*:any*/, mode /*: string */) /*:string*/ =>
     type.value.toString(),
   any: (type /*: K.Any*/, mode /*: string */) /*:string*/ => type.kind,
@@ -266,10 +268,7 @@ const converters = {
     return type.value.cooked.toString();
   },
 
-  class: (
-    type /*: K.ClassKind */,
-    mode /*: string */,
-  ) /*: string */ => {
+  class: (type /*: K.ClassKind */, mode /*: string */) /*: string */ => {
     return convert(type.name);
   },
 

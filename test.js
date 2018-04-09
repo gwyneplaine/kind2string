@@ -322,4 +322,11 @@ describe('kind 2 string tests', () => {
   describe('utilities', () => {
     describe('resolveLast', () => {});
   });
+  describe('arrayType', () => {
+    it('should resolve to a neat string', () => {
+      let prop = `number[]`;
+      let final = getSingleProp(prop);
+      expect(final).toBe('array of number');
+    });
+  });
 });
