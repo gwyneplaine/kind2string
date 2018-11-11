@@ -29,14 +29,20 @@ export function resolveFromGeneric(type) {
 }
 
 export function reduceToObj(type) {
-  if (type.kind === "generic") {
-    return reduceToObj(type.value);
-  } else if (type.kind === "object") {
+  const reducableKinds = ['generic', 'object', 'intersection'];
+  if (type.kind === 'generic') {
+    // Only attempt to reduce generic if it has a reducable value
+    // Unreducable generics that have an identifier value, e.g. ElementConfig, are still valid
+    // so we return early to avoid the console warn below
+    return reducableKinds.includes(type.value.kind)
+      ? reduceToObj(type.value)
+      : [];
+  } else if (type.kind === 'object') {
     return type.members;
-  } else if (type.kind === "intersection") {
+  } else if (type.kind === 'intersection') {
     return type.types.reduce((acc, i) => [...acc, ...reduceToObj(i)], []);
   }
-  // eslint-disable-next-line no-console
-  console.warn("was expecting to reduce to an object and could not", type);
+
+  console.warn('was expecting to reduce to an object and could not', type);
   return [];
 }
