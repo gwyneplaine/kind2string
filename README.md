@@ -1,3 +1,6 @@
+# The code for this package has been moved
+> To make a better unified dev loop, this package has been added to [a monorepo](https://github.com/atlassian/extract-react-types) for packages that work with extract-react-types. Future work will continue from there.
+
 # Kind 2 String - a parser for extract-react-types
 
 Kind 2 String is designed to take the data structures outputted by [extract-react-types](https://www.npmjs.com/package/extract-react-types) and convert it down to a (useful) string, as well as performing safe traversal through the output of `extract-react-types` so that trying to display information in your docs does not throw errors.
